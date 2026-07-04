@@ -117,7 +117,7 @@
 .chapter-item.active .chapter-link {
   color: var(--text-primary);
   font-weight: 500;
-  border-left-color: var(--accent-purple);
+  border-left-color: var(--accent-blue);
   background: var(--bg-card-hover);
 }
 
@@ -188,7 +188,7 @@
 }
 
 .summary-card blockquote {
-  border-left: 4px solid var(--accent-purple);
+  border-left: 4px solid var(--accent-blue);
   background: var(--bg-card);
   padding: var(--space-md) var(--space-lg);
   margin: var(--space-lg) 0;
