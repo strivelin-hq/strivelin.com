@@ -98,38 +98,39 @@
 
   <!-- ========== Learning Hub Container ========== -->
   <div class="learn-container">
-    <div class="container learn-layout">
-      
-      <!-- Left Sidebar: Browse Topics & Chapters -->
-      <aside class="learn-sidebar" id="learnSidebar" role="complementary" aria-label="Course outline">
-        <h2 class="sidebar-title">Topics</h2>
-        <nav class="topics-nav" id="topicsList">
-          <!-- Populated by JavaScript -->
-          <div class="sidebar-skeleton">
-            <div class="skeleton-line shadow"></div>
-            <div class="skeleton-line short"></div>
-            <div class="skeleton-line"></div>
-          </div>
-        </nav>
-      </aside>
-
-      <!-- Main Learning Content -->
-      <main class="learn-main" id="learnMain">
-        <!-- Mobile Toolbar Header -->
-        <div class="mobile-toolbar">
-          <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Topic Index">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            <span>Topics</span>
-          </button>
-          
-          <div class="mobile-lang-indicator" id="mobileLangIndicator" title="Active Language">
-            <span class="lang-en">English</span>
-            <span class="lang-ml">മലയാളം</span>
-          </div>
-        </div>
+    <div class="container">
+      <!-- Mobile Toolbar Header -->
+      <div class="mobile-toolbar">
+        <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle Topic Index">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <span>Topics</span>
+        </button>
         
-        <!-- Breadcrumbs / Active Path Info -->
-        <header class="content-header">
+        <button class="mobile-lang-indicator" id="mobileLangIndicator" title="Toggle Language">
+          <span class="lang-en">English</span>
+          <span class="lang-ml">മലയാളം</span>
+        </button>
+      </div>
+
+      <div class="learn-layout">
+        <!-- Left Sidebar: Browse Topics & Chapters -->
+        <aside class="learn-sidebar" id="learnSidebar" role="complementary" aria-label="Course outline">
+          <h2 class="sidebar-title">Topics</h2>
+          <nav class="topics-nav" id="topicsList">
+            <!-- Populated by JavaScript -->
+            <div class="sidebar-skeleton">
+              <div class="skeleton-line shadow"></div>
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line"></div>
+            </div>
+          </nav>
+        </aside>
+
+        <!-- Main Learning Content -->
+        <main class="learn-main" id="learnMain">
+          
+          <!-- Breadcrumbs / Active Path Info -->
+          <header class="content-header">
           <div class="breadcrumbs" id="breadcrumbs">
             <span class="crumb-topic">Loading...</span>
             <span class="crumb-separator">&rarr;</span>
@@ -285,6 +286,17 @@
       const isOpen = langDropdown.classList.toggle('open');
       langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
+
+    // Mobile language badge click toggle
+    const mobileLangIndicator = document.getElementById('mobileLangIndicator');
+    if (mobileLangIndicator) {
+      mobileLangIndicator.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const currentLang = localStorage.getItem('strivelin_lang') || 'en';
+        const nextLang = currentLang === 'en' ? 'ml' : 'en';
+        applyLanguage(nextLang);
+      });
+    }
   </script>
 </body>
 </html>
