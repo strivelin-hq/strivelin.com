@@ -2,6 +2,10 @@
    Strivelin Learning Hub Styling
    ============================================ */
 
+/* --- Language Visibility Rules --- */
+html[data-lang="en"] .lang-ml { display: none !important; }
+html[data-lang="ml"] .lang-en { display: none !important; }
+
 /* --- Layout Container --- */
 .learn-container {
   padding-top: calc(var(--nav-height) + var(--space-xl));
@@ -809,36 +813,38 @@ html[data-lang="ml"] .lang-en {
   flex-wrap: wrap;
 }
 
-.copy-section-link-btn {
-  background: rgba(255, 255, 255, 0.02);
+.share-btn {
+  background: none;
   border: 1px solid var(--bg-glass-border);
   color: var(--text-secondary);
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-full);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: 6px;
   font-size: 0.75rem;
+  font-family: inherit;
   font-weight: 600;
-  transition: all var(--transition-fast);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.copy-section-link-btn:hover {
+.share-btn:hover,
+.share-btn:active {
   background: var(--bg-card);
   color: var(--accent-blue);
   border-color: var(--accent-blue);
 }
 
-.copy-section-link-btn.copied {
-  background: rgba(16, 185, 129, 0.1) !important;
-  color: #10b981 !important;
-  border-color: #10b981 !important;
+.share-btn.copied {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border-color: #10b981;
 }
 
-.copy-section-link-btn svg,
-.copy-section-link-btn span {
-  flex-shrink: 0;
+.share-btn svg,
+.share-btn span {
   pointer-events: none;
 }
 
@@ -847,11 +853,8 @@ html[data-lang="ml"] .lang-en {
     flex-wrap: wrap;
     gap: var(--space-xs);
   }
-  
-  .copy-section-link-btn {
-    padding: 4px 8px !important;
+  .share-btn {
+    padding: 5px 10px;
     font-size: 0.7rem;
   }
 }
-
-

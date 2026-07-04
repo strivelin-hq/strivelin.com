@@ -18,6 +18,7 @@ const chapterTitle = document.getElementById('chapterTitle');
 const summaryContent = document.getElementById('summaryContent');
 const learnSidebar = document.getElementById('learnSidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
+const mobileToolbar = sidebarToggle ? sidebarToggle.closest('.mobile-toolbar') : null;
 
 // --- Navigation Scroll Effect ---
 window.addEventListener('scroll', () => {
@@ -159,8 +160,8 @@ async function selectTopic(topicId, chapterId = null, updateHistory = true) {
   const topic = TOPICS.find(t => t.id === topicId);
   if (!topic) return;
 
-  // Show mobile drawer toggle on topic pages
-  if (sidebarToggle) sidebarToggle.style.display = 'flex';
+  // Show mobile toolbar on topic pages
+  if (mobileToolbar) mobileToolbar.style.display = 'flex';
 
   // Collapse mobile sidebar drawer when selection happens
   if (learnSidebar) learnSidebar.classList.remove('open');
@@ -247,15 +248,14 @@ async function selectTopic(topicId, chapterId = null, updateHistory = true) {
 function renderStitchedTopic(topic, chapters) {
   let html = '';
 
-  // Render all chapters stitched together
   chapters.forEach(c => {
     html += `
       <section id="section-${topic.id}-${c.id}" class="chapter-section" data-chapter-id="${c.id}">
         <h2 class="chapter-section-title">
           <span>${c.title}</span>
-          <button class="copy-section-link-btn" title="Copy link to this section" onclick="copySectionLink('${topic.id}', '${c.id}', this)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-            <span class="btn-tooltip-text">Copy Link</span>
+          <button class="share-btn" data-topic="${topic.id}" data-chapter="${c.id}" onclick="alert('clicked: ' + this.dataset.topic + '/' + this.dataset.chapter)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <span>Share</span>
           </button>
         </h2>
         <div class="glass-card summary-card">
@@ -268,64 +268,79 @@ function renderStitchedTopic(topic, chapters) {
   summaryContent.innerHTML = html;
 }
 
-// Helper to copy text to clipboard supporting both modern API and legacy fallback synchronously
-function copyTextToClipboard(text) {
-  // Only use modern Clipboard API if context is secure
-  if (window.isSecureContext && navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).catch(err => {
-      console.warn('Modern Clipboard API failed: ', err);
+// Single global click handler for all share buttons
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.share-btn');
+  if (!btn) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  var topicId = btn.getAttribute('data-topic');
+  var chapterId = btn.getAttribute('data-chapter');
+  var lang = localStorage.getItem('strivelin_lang') || 'en';
+  var url = window.location.origin + '/learn/?lang=' + lang + '#/learn/' + topicId + '/' + chapterId;
+
+  // Try native share API first (works on mobile)
+  if (navigator.share) {
+    navigator.share({ title: 'Strivelin', url: url }).catch(function() {
+      // User cancelled or share failed - copy to clipboard instead
+      doCopy(url, btn);
     });
-    return true; 
+  } else {
+    doCopy(url, btn);
+  }
+});
+
+function doCopy(text, btn) {
+  var ok = false;
+
+  // Method 1: Modern clipboard API (HTTPS only)
+  if (window.isSecureContext && navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() {
+      showCopied(btn);
+    }).catch(function() {
+      // Fallback
+      ok = execCopy(text);
+      if (ok) showCopied(btn);
+      else prompt('Copy this link:', text);
+    });
+    return;
   }
 
-  // Fallback for insecure/local IP contexts or older mobile browsers
-  try {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    // Keep offscreen and prevent scrolling issues
-    textArea.style.position = "fixed";
-    textArea.style.top = "-9999px";
-    textArea.style.left = "-9999px";
-    textArea.setAttribute('readonly', ''); // Prevent keyboard popup on mobile
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    textArea.setSelectionRange(0, 99999); // Essential iOS Safari select support
-
-    const successful = document.execCommand("copy");
-    document.body.removeChild(textArea);
-    return successful;
-  } catch (err) {
-    console.error('Fallback copy command failed: ', err);
-    return false;
+  // Method 2: execCommand fallback
+  ok = execCopy(text);
+  if (ok) {
+    showCopied(btn);
+  } else {
+    prompt('Copy this link:', text);
   }
 }
 
-// Copy specific section URL to clipboard with current language query parameter
-function copySectionLink(topicId, chapterId, buttonEl) {
-  try {
-    const currentLang = localStorage.getItem('strivelin_lang') || 'en';
-    const url = `${window.location.origin}${window.location.pathname}?lang=${currentLang}#/learn/${topicId}/${chapterId}`;
+function execCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { ta.setSelectionRange(0, 99999); } catch(e) {}
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  return ok;
+}
 
-    const success = copyTextToClipboard(url);
-    if (success) {
-      const tooltip = buttonEl.querySelector('.btn-tooltip-text');
-      if (tooltip) {
-        const originalText = tooltip.textContent;
-        tooltip.textContent = 'Copied!';
-        buttonEl.classList.add('copied');
-        
-        setTimeout(() => {
-          tooltip.textContent = originalText;
-          buttonEl.classList.remove('copied');
-        }, 2000);
-      }
-    } else {
-      // Show prompt fallback if all auto-copy methods fail
-      prompt('Could not copy link automatically. Please copy the link below:', url);
-    }
-  } catch (err) {
-    alert('Error in copySectionLink: ' + err.message + '\nStack: ' + err.stack);
+function showCopied(btn) {
+  var span = btn.querySelector('span');
+  if (span) {
+    span.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      span.textContent = 'Share';
+      btn.classList.remove('copied');
+    }, 2000);
   }
 }
 
@@ -405,8 +420,8 @@ function showDashboard() {
     scrollSpyObserver.disconnect();
   }
 
-  // Hide mobile drawer toggle on dashboard
-  if (sidebarToggle) sidebarToggle.style.display = 'none';
+  // Hide mobile toolbar on dashboard
+  if (mobileToolbar) mobileToolbar.style.display = 'none';
   if (learnSidebar) learnSidebar.classList.remove('open');
 
   // Breadcrumbs and Title

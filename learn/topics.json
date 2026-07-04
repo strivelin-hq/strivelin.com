@@ -42,5 +42,44 @@
         "path": "content/faith-qa/baptism-holyspirit.html"
       }
     ]
+  },
+  {
+    "id": "holy-mass",
+    "title": "<span class=\"lang-en\">The Holy Mass: Shadows to Reality</span><span class=\"lang-ml\">വിശുദ്ധ കുർബാന: നിഴലുകളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്</span>",
+    "description": "<span class=\"lang-en\">A structured study guide exploring the Old Testament prefigurations of the Mass, Jesus' promise, and its cosmic reality.</span><span class=\"lang-ml\">വിശുദ്ധ കുർബാനയുടെ പഴയനിയമ നിഴലുകൾ, യേശുവിന്റെ വാഗ്ദാനം, സ്വർഗ്ഗീയ യാഥാർത്ഥ്യം എന്നിവ വിശദീകരിക്കുന്ന പഠന സഹായി.</span>",
+    "category": "<span class=\"lang-en\">Faith & Theology</span><span class=\"lang-ml\">വിശ്വാസം</span>",
+    "icon": "⛪",
+    "chapters": [
+      {
+        "id": "hook",
+        "title": "<span class=\"lang-en\">1. The Hook</span><span class=\"lang-ml\">1. ആമുഖം</span>",
+        "path": "content/holy-mass/hook.html"
+      },
+      {
+        "id": "ot-shadows",
+        "title": "<span class=\"lang-en\">2. Old Testament Shadows</span><span class=\"lang-ml\">2. പഴയനിയമത്തിലെ നിഴലുകൾ</span>",
+        "path": "content/holy-mass/ot-shadows.html"
+      },
+      {
+        "id": "shocking-promise",
+        "title": "<span class=\"lang-en\">3. The Shocking Promise</span><span class=\"lang-ml\">3. അവിശ്വസനീയമായ വാഗ്ദാനം</span>",
+        "path": "content/holy-mass/shocking-promise.html"
+      },
+      {
+        "id": "climax",
+        "title": "<span class=\"lang-en\">4. The Climax: Last Supper</span><span class=\"lang-ml\">4. അന്ത്യത്താഴം</span>",
+        "path": "content/holy-mass/climax.html"
+      },
+      {
+        "id": "cosmic-reality",
+        "title": "<span class=\"lang-en\">5. The Cosmic Reality</span><span class=\"lang-ml\">5. സ്വർഗ്ഗീയ യാഥാർത്ഥ്യം</span>",
+        "path": "content/holy-mass/cosmic-reality.html"
+      },
+      {
+        "id": "group-challenge",
+        "title": "<span class=\"lang-en\">6. Group Challenge</span><span class=\"lang-ml\">6. ഗ്രൂപ്പ് ചർച്ച</span>",
+        "path": "content/holy-mass/group-challenge.html"
+      }
+    ]
   }
 ]
