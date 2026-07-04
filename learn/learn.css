@@ -290,9 +290,11 @@
     justify-content: center;
     gap: var(--space-xs);
     padding: 6px 14px;
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--text-primary);
-    border: 1px solid var(--bg-glass-border);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.8rem;
@@ -302,7 +304,7 @@
   }
 
   .sidebar-toggle:hover {
-    background: var(--bg-card-hover);
+    background: rgba(255, 255, 255, 0.08);
     border-color: var(--accent-blue);
   }
 
@@ -318,8 +320,10 @@
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
-    background: var(--bg-card);
-    border: 1px solid var(--bg-glass-border);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 5px 12px;
     border-radius: var(--radius-full);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -332,7 +336,7 @@
   }
 
   .mobile-lang-indicator:hover {
-    background: var(--bg-card-hover);
+    background: rgba(255, 255, 255, 0.08);
     border-color: var(--accent-blue);
     color: var(--text-primary);
   }
@@ -344,6 +348,20 @@
     height: 6px;
     background-color: var(--accent-blue);
     border-radius: var(--radius-full);
+  }
+
+  /* Reverse rules to show the target language option inside the button */
+  html[data-lang="en"] .mobile-lang-indicator .lang-en {
+    display: none !important;
+  }
+  html[data-lang="en"] .mobile-lang-indicator .lang-ml {
+    display: inline !important;
+  }
+  html[data-lang="ml"] .mobile-lang-indicator .lang-ml {
+    display: none !important;
+  }
+  html[data-lang="ml"] .mobile-lang-indicator .lang-en {
+    display: inline !important;
   }
 
   /* Slide-in Overlay Drawer */
@@ -792,9 +810,9 @@ html[data-lang="ml"] .lang-en {
 }
 
 .copy-section-link-btn {
-  background: none;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--bg-glass-border);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   padding: 6px 12px;
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -818,8 +836,10 @@ html[data-lang="ml"] .lang-en {
   border-color: #10b981 !important;
 }
 
-.copy-section-link-btn svg {
+.copy-section-link-btn svg,
+.copy-section-link-btn span {
   flex-shrink: 0;
+  pointer-events: none;
 }
 
 @media (max-width: 600px) {

@@ -268,26 +268,65 @@ function renderStitchedTopic(topic, chapters) {
   summaryContent.innerHTML = html;
 }
 
+// Helper to copy text to clipboard supporting both modern API and legacy fallback synchronously
+function copyTextToClipboard(text) {
+  // Only use modern Clipboard API if context is secure
+  if (window.isSecureContext && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(err => {
+      console.warn('Modern Clipboard API failed: ', err);
+    });
+    return true; 
+  }
+
+  // Fallback for insecure/local IP contexts or older mobile browsers
+  try {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    // Keep offscreen and prevent scrolling issues
+    textArea.style.position = "fixed";
+    textArea.style.top = "-9999px";
+    textArea.style.left = "-9999px";
+    textArea.setAttribute('readonly', ''); // Prevent keyboard popup on mobile
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    textArea.setSelectionRange(0, 99999); // Essential iOS Safari select support
+
+    const successful = document.execCommand("copy");
+    document.body.removeChild(textArea);
+    return successful;
+  } catch (err) {
+    console.error('Fallback copy command failed: ', err);
+    return false;
+  }
+}
+
 // Copy specific section URL to clipboard with current language query parameter
 function copySectionLink(topicId, chapterId, buttonEl) {
-  const currentLang = localStorage.getItem('strivelin_lang') || 'en';
-  const url = `${window.location.origin}${window.location.pathname}?lang=${currentLang}#/learn/${topicId}/${chapterId}`;
+  try {
+    const currentLang = localStorage.getItem('strivelin_lang') || 'en';
+    const url = `${window.location.origin}${window.location.pathname}?lang=${currentLang}#/learn/${topicId}/${chapterId}`;
 
-  navigator.clipboard.writeText(url).then(() => {
-    const tooltip = buttonEl.querySelector('.btn-tooltip-text');
-    if (tooltip) {
-      const originalText = tooltip.textContent;
-      tooltip.textContent = 'Copied!';
-      buttonEl.classList.add('copied');
-      
-      setTimeout(() => {
-        tooltip.textContent = originalText;
-        buttonEl.classList.remove('copied');
-      }, 2000);
+    const success = copyTextToClipboard(url);
+    if (success) {
+      const tooltip = buttonEl.querySelector('.btn-tooltip-text');
+      if (tooltip) {
+        const originalText = tooltip.textContent;
+        tooltip.textContent = 'Copied!';
+        buttonEl.classList.add('copied');
+        
+        setTimeout(() => {
+          tooltip.textContent = originalText;
+          buttonEl.classList.remove('copied');
+        }, 2000);
+      }
+    } else {
+      // Show prompt fallback if all auto-copy methods fail
+      prompt('Could not copy link automatically. Please copy the link below:', url);
     }
-  }).catch(err => {
-    console.error('Failed to copy link: ', err);
-  });
+  } catch (err) {
+    alert('Error in copySectionLink: ' + err.message + '\nStack: ' + err.stack);
+  }
 }
 
 function updateActiveSidebarItem(topicId, chapterId) {
