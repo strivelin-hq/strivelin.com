@@ -159,6 +159,13 @@
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
+    function closeMobileMenu() {
+      links.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
     // --- Dynamic Theme Selector Controller ---
     const themeBtns = document.querySelectorAll('[data-theme-btn]');
     const themeDropdown = document.getElementById('themeDropdown');
@@ -188,6 +195,7 @@
         applyTheme(theme);
         themeDropdown.classList.remove('open');
         themeTrigger.setAttribute('aria-expanded', 'false');
+        closeMobileMenu();
       });
     });
 
@@ -235,6 +243,7 @@
         applyLanguage(lang);
         langDropdown.classList.remove('open');
         langTrigger.setAttribute('aria-expanded', 'false');
+        closeMobileMenu();
       });
     });
 
