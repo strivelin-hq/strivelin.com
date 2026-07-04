@@ -23,7 +23,7 @@ compatibility_date = "2024-01-01"
 
 [vars]
 VERCEL_ORIGIN = "do-plum-xi.vercel.app"
-PAGES_ORIGIN  = "strivelin.pages.dev"
+PAGES_ORIGIN  = "strivelin-com.pages.dev"
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Custom Domain Routes (optional)
