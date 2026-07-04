@@ -1,0 +1,46 @@
+[
+  {
+    "id": "faith-qa",
+    "title": "<span class=\"lang-en\">Faith Convictions</span><span class=\"lang-ml\">വിശ്വാസബോധ്യങ്ങൾ</span>",
+    "description": "<span class=\"lang-en\">Answers and theological discussions on common doubts and questions regarding faith.</span><span class=\"lang-ml\">വിശ്വാസപരമായ സംശയങ്ങളും ദൈവശാസ്ത്രപരമായ ചർച്ചകളും ഉത്തരങ്ങളും.</span>",
+    "category": "<span class=\"lang-en\">Faith & Theology</span><span class=\"lang-ml\">വിശ്വാസം</span>",
+    "icon": "🕊️",
+    "chapters": [
+      {
+        "id": "worship-saints",
+        "title": "<span class=\"lang-en\">1. Prayer & Intercession</span><span class=\"lang-ml\">1. പ്രാർത്ഥനയും മധ്യസ്ഥതയും</span>",
+        "path": "content/faith-qa/worship-saints.html"
+      },
+      {
+        "id": "mother-of-god",
+        "title": "<span class=\"lang-en\">2. Mother of God</span><span class=\"lang-ml\">2. മറിയത്തിന്റെ ദൈവമാതൃത്വം</span>",
+        "path": "content/faith-qa/mother-of-god.html"
+      },
+      {
+        "id": "communion-of-saints",
+        "title": "<span class=\"lang-en\">3. Communion of Saints</span><span class=\"lang-ml\">3. വിശുദ്ധരുടെ ഐക്യം</span>",
+        "path": "content/faith-qa/communion-of-saints.html"
+      },
+      {
+        "id": "perpetual-virginity",
+        "title": "<span class=\"lang-en\">4. Perpetual Virginity</span><span class=\"lang-ml\">4. മറിയത്തിന്റെ നിത്യകന്യകാത്വം</span>",
+        "path": "content/faith-qa/perpetual-virginity.html"
+      },
+      {
+        "id": "resurrection-ascension",
+        "title": "<span class=\"lang-en\">5. Resurrection & Ascension</span><span class=\"lang-ml\">5. ഉയിർപ്പും സ്വർഗ്ഗാരോഹണവും</span>",
+        "path": "content/faith-qa/resurrection-ascension.html"
+      },
+      {
+        "id": "hell-mercy",
+        "title": "<span class=\"lang-en\">6. Hell & Divine Mercy</span><span class=\"lang-ml\">6. നരകവും ദൈവകാരുണ്യവും</span>",
+        "path": "content/faith-qa/hell-mercy.html"
+      },
+      {
+        "id": "baptism-holyspirit",
+        "title": "<span class=\"lang-en\">7. Baptism & Holy Spirit</span><span class=\"lang-ml\">7. യേശുവിന്റെ മാമ്മോദീസ</span>",
+        "path": "content/faith-qa/baptism-holyspirit.html"
+      }
+    ]
+  }
+]
