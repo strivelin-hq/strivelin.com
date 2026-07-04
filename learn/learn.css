@@ -738,3 +738,56 @@ html[data-lang="ml"] .lang-en {
   pointer-events: none;
 }
 
+/* --- Copy Section Link Button --- */
+.chapter-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.copy-section-link-btn {
+  background: none;
+  border: 1px solid var(--bg-glass-border);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.copy-section-link-btn:hover {
+  background: var(--bg-card);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+}
+
+.copy-section-link-btn.copied {
+  background: rgba(16, 185, 129, 0.1) !important;
+  color: #10b981 !important;
+  border-color: #10b981 !important;
+}
+
+.copy-section-link-btn svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .chapter-section-title {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+  
+  .copy-section-link-btn {
+    padding: 4px 8px !important;
+    font-size: 0.7rem;
+  }
+}
+
+

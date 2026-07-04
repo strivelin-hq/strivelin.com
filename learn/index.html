@@ -6,7 +6,14 @@
     (function() {
       const savedTheme = localStorage.getItem('strivelin_theme') || 'ultramarine';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      const savedLang = localStorage.getItem('strivelin_lang') || 'ml';
+      
+      // Parse language query parameter or fallback to localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      let queryLang = urlParams.get('lang');
+      if (queryLang && (queryLang === 'en' || queryLang === 'ml')) {
+        localStorage.setItem('strivelin_lang', queryLang);
+      }
+      const savedLang = localStorage.getItem('strivelin_lang') || 'en';
       document.documentElement.setAttribute('data-lang', savedLang);
     })();
   </script>
@@ -229,10 +236,21 @@
         btn.classList.toggle('active', isActive);
         btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       });
+
+      // Update URL query parameter without page reload
+      try {
+        const url = new URL(window.location.href);
+        if (url.searchParams.get('lang') !== lang) {
+          url.searchParams.set('lang', lang);
+          window.history.replaceState(null, '', url.toString());
+        }
+      } catch (err) {
+        console.error('Failed to update URL query param: ', err);
+      }
     }
 
     // Initialize Language
-    const initialLang = localStorage.getItem('strivelin_lang') || 'ml';
+    const initialLang = localStorage.getItem('strivelin_lang') || 'en';
     applyLanguage(initialLang);
 
     // Language click handlers

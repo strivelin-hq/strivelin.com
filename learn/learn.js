@@ -251,7 +251,13 @@ function renderStitchedTopic(topic, chapters) {
   chapters.forEach(c => {
     html += `
       <section id="section-${topic.id}-${c.id}" class="chapter-section" data-chapter-id="${c.id}">
-        <h2 class="chapter-section-title">${c.title}</h2>
+        <h2 class="chapter-section-title">
+          <span>${c.title}</span>
+          <button class="copy-section-link-btn" title="Copy link to this section" onclick="copySectionLink('${topic.id}', '${c.id}', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            <span class="btn-tooltip-text">Copy Link</span>
+          </button>
+        </h2>
         <div class="glass-card summary-card">
           ${c.html}
         </div>
@@ -260,6 +266,28 @@ function renderStitchedTopic(topic, chapters) {
   });
 
   summaryContent.innerHTML = html;
+}
+
+// Copy specific section URL to clipboard with current language query parameter
+function copySectionLink(topicId, chapterId, buttonEl) {
+  const currentLang = localStorage.getItem('strivelin_lang') || 'en';
+  const url = `${window.location.origin}${window.location.pathname}?lang=${currentLang}#/learn/${topicId}/${chapterId}`;
+
+  navigator.clipboard.writeText(url).then(() => {
+    const tooltip = buttonEl.querySelector('.btn-tooltip-text');
+    if (tooltip) {
+      const originalText = tooltip.textContent;
+      tooltip.textContent = 'Copied!';
+      buttonEl.classList.add('copied');
+      
+      setTimeout(() => {
+        tooltip.textContent = originalText;
+        buttonEl.classList.remove('copied');
+      }, 2000);
+    }
+  }).catch(err => {
+    console.error('Failed to copy link: ', err);
+  });
 }
 
 function updateActiveSidebarItem(topicId, chapterId) {
