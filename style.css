@@ -584,7 +584,7 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Features Section --- */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-xl);
 }
 
@@ -1042,4 +1042,33 @@ h1, h2, h3, h4, h5, h6 {
   .section {
     padding: var(--space-3xl) 0;
   }
+}
+
+/* --- Badge & Card Status Modifiers --- */
+.badge-alpha {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: var(--space-sm);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.product-card.secondary-card {
+  opacity: 0.75;
+  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.01);
+  transition: all var(--transition-base);
+}
+
+.product-card.secondary-card:hover {
+  opacity: 1;
+  border-color: var(--bg-glass-border);
+  background: rgba(255, 255, 255, 0.03);
 }
