@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Blog — Strivelin</title>
+  <meta name="description" content="Tips, insights, and updates on productivity and goal-setting from the Strivelin team.">
+  <meta name="author" content="Strivelin">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog — Strivelin">
+  <meta property="og:description" content="Tips, insights, and updates on productivity and goal-setting from the Strivelin team.">
+  <meta property="og:url" content="https://strivelin.com/blog/">
+  <meta property="og:site_name" content="Strivelin">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Blog — Strivelin">
+  <meta name="twitter:description" content="Tips, insights, and updates on productivity and goal-setting.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ========== Navigation ========== -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="/" class="nav-logo" aria-label="Strivelin home">
+        <span class="gradient-text">Strivelin</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a href="/#products" class="nav-link" role="menuitem">Products</a></li>
+        <li role="none"><a href="/blog/" class="nav-link" role="menuitem">Blog</a></li>
+        <li role="none" class="nav-cta">
+          <a href="/do/login" class="btn btn-primary" role="menuitem">Get Started</a>
+        </li>
+      </ul>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== Blog Hero ========== -->
+  <section class="blog-hero">
+    <div class="container">
+      <h1><span class="gradient-text">Strivelin Blog</span></h1>
+      <p>Tips, insights, and updates on productivity and goal-setting.</p>
+    </div>
+  </section>
+
+  <!-- ========== Blog Listing ========== -->
+  <main>
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="blog-grid">
+
+          <!-- Post 1 -->
+          <article class="glass-card blog-card reveal">
+            <time class="blog-card-date" datetime="2026-06-28">June 28, 2026</time>
+            <h3>The Power of Recurring Goals</h3>
+            <p class="blog-card-excerpt">
+              Discover how setting recurring goals can transform your daily productivity and help you build lasting habits without the mental overhead of remembering everything.
+            </p>
+            <a href="/blog/productivity/recurring-goals" class="blog-card-link">
+              Read More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="glass-card blog-card reveal">
+            <time class="blog-card-date" datetime="2026-06-20">June 20, 2026</time>
+            <h3>Why Daily Tracking Changes Everything</h3>
+            <p class="blog-card-excerpt">
+              Research shows that people who track their goals daily are 42% more likely to achieve them. Learn the science behind daily tracking and how to make it a habit.
+            </p>
+            <a href="/blog/productivity/daily-tracking" class="blog-card-link">
+              Read More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="glass-card blog-card reveal">
+            <time class="blog-card-date" datetime="2026-06-10">June 10, 2026</time>
+            <h3>Introducing Strivelin Do</h3>
+            <p class="blog-card-excerpt">
+              We're thrilled to announce Strivelin Do — a zero-friction goal tracker built for people who want to achieve more without the complexity of traditional project management tools.
+            </p>
+            <a href="/blog/announcements/introducing-strivelin-do" class="blog-card-link">
+              Read More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer-copy">&copy; 2026 Strivelin. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="/blog/" class="footer-link">Blog</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ========== Minimal JS ========== -->
+  <script>
+    // --- Navbar scroll effect ---
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // --- Mobile menu toggle ---
+    const toggle = document.getElementById('mobileToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    links.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // --- Reveal on scroll ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

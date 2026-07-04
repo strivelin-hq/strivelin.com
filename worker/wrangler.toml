@@ -1,0 +1,52 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Strivelin Traffic Router — Wrangler Configuration
+# ──────────────────────────────────────────────────────────────────────────────
+# This file configures the Cloudflare Worker that routes traffic for
+# www.strivelin.com between Vercel (Next.js app) and Cloudflare Pages
+# (landing page / blog).
+#
+# Docs: https://developers.cloudflare.com/workers/wrangler/configuration/
+# ──────────────────────────────────────────────────────────────────────────────
+
+name = "strivelin-router"
+main = "router.js"
+compatibility_date = "2024-01-01"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Environment Variables
+# ──────────────────────────────────────────────────────────────────────────────
+# These are non-secret variables. For secrets (API keys, tokens), use:
+#   wrangler secret put SECRET_NAME
+#
+# You can override these per-environment (see [env.staging] below).
+# ──────────────────────────────────────────────────────────────────────────────
+
+[vars]
+VERCEL_ORIGIN = "do-plum-xi.vercel.app"
+PAGES_ORIGIN  = "strivelin.pages.dev"
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Custom Domain Routes (optional)
+# ──────────────────────────────────────────────────────────────────────────────
+# Uncomment the section below once you've added strivelin.com as a Custom
+# Domain in the Cloudflare dashboard (Workers & Pages → your worker →
+# Settings → Domains & Routes).
+#
+# Using Custom Domains (recommended — Cloudflare manages DNS automatically):
+#   Go to the dashboard and add the domains there instead of using routes.
+#
+# Using routes (legacy approach — requires a DNS record to already exist):
+# [routes]
+# { pattern = "strivelin.com/*",     zone_name = "strivelin.com" }
+# { pattern = "www.strivelin.com/*", zone_name = "strivelin.com" }
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Staging Environment (optional)
+# ──────────────────────────────────────────────────────────────────────────────
+# Deploy to staging with:  wrangler deploy --env staging
+#
+# [env.staging]
+# name = "strivelin-router-staging"
+# [env.staging.vars]
+# VERCEL_ORIGIN = "do-plum-xi.vercel.app"
+# PAGES_ORIGIN  = "strivelin-staging.pages.dev"
