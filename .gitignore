@@ -2,5 +2,3 @@
 worker/.wrangler/
 node_modules/
 .DS_Store
-.dev.vars
-worker/.dev.vars
