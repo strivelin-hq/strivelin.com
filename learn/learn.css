@@ -260,7 +260,8 @@
 }
 
 /* --- Mobile Responsiveness --- */
-.sidebar-toggle {
+.sidebar-toggle,
+.mobile-toolbar {
   display: none;
 }
 
@@ -270,16 +271,24 @@
     gap: var(--space-xl);
   }
 
-  /* Sticky Top-Left Button */
+  /* Sticky Mobile Toolbar (Topics + Language Badge) */
+  .mobile-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    position: sticky;
+    top: calc(var(--nav-height) + 12px);
+    left: 0;
+    z-index: 90;
+    align-self: flex-start;
+    margin-bottom: var(--space-md);
+  }
+
   .sidebar-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-xs);
-    position: sticky;
-    top: calc(var(--nav-height) + 12px);
-    left: 0;
-    z-index: 90;
     padding: 6px 14px;
     background: var(--bg-card);
     color: var(--text-primary);
@@ -287,11 +296,9 @@
     border-radius: var(--radius-full);
     font-weight: 600;
     font-size: 0.8rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: all var(--transition-fast);
-    align-self: flex-start;
-    margin-bottom: var(--space-md);
   }
 
   .sidebar-toggle:hover {
@@ -304,6 +311,30 @@
     color: #fff;
     border: none;
     box-shadow: 0 4px 15px var(--accent-glow);
+  }
+
+  /* Mobile Language Badge */
+  .mobile-lang-indicator {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--bg-glass-border);
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mobile-lang-indicator::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-blue);
+    border-radius: var(--radius-full);
   }
 
   /* Slide-in Overlay Drawer */
