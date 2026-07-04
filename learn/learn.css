@@ -327,6 +327,69 @@
   }
 }
 
+/* --- Mobile / Small Screen Adjustments --- */
+@media (max-width: 600px) {
+  .learn-container {
+    padding-top: calc(var(--nav-height) + var(--space-sm));
+    padding-bottom: var(--space-2xl);
+  }
+
+  #chapterTitle {
+    font-size: 1.65rem;
+  }
+
+  .summary-card {
+    padding: var(--space-md) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .chapter-section-title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Dialogue bubbles on mobile */
+  .dialogue-container {
+    gap: var(--space-sm) !important;
+    margin: var(--space-md) 0 !important;
+  }
+
+  .bubble {
+    padding: 10px 14px !important;
+    font-size: 0.92rem;
+    max-width: 95% !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  /* Topic Cards & Grids on mobile */
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+    gap: var(--space-md) !important;
+  }
+
+  .topic-card {
+    padding: var(--space-md) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .topic-card-title {
+    font-size: 1.1rem !important;
+  }
+
+  .topic-card-desc {
+    margin-bottom: var(--space-md) !important;
+    font-size: 0.85rem !important;
+  }
+
+  .search-container {
+    margin-bottom: var(--space-lg) !important;
+  }
+
+  .category-section {
+    margin-bottom: var(--space-xl) !important;
+  }
+}
+
 /* --- Q&A Dialogue / Chat Bubble Styling --- */
 .dialogue-container {
   display: flex;
