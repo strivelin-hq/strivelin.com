@@ -1084,3 +1084,126 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--bg-glass-border);
   background: rgba(255, 255, 255, 0.03);
 }
+
+/* ============================================
+   Multi-Theme System Settings
+   ============================================ */
+
+/* Theme Override Block 1: Ultramarine & Silver (Default) */
+html[data-theme="ultramarine"] {
+  --bg-primary: #040406;
+  --bg-secondary: #09090d;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-border: rgba(255, 255, 255, 0.07);
+  --text-primary: #f0f0f5;
+  --text-secondary: #a0a0b8;
+  --text-muted: #6a6a7c;
+  --accent-purple: #000000;
+  --accent-blue: #2b4593;
+  --accent-gradient: linear-gradient(135deg, #ffffff, #2b4593);
+  --accent-gradient-hover: linear-gradient(135deg, #f3f4f6, #3b5cb8);
+  --accent-glow: rgba(43, 69, 147, 0.4);
+  --accent-glow-blue: rgba(43, 69, 147, 0.25);
+  --shadow-glow: 0 0 30px rgba(43, 69, 147, 0.15);
+  --shadow-glow-strong: 0 0 60px rgba(43, 69, 147, 0.25);
+}
+
+/* Theme Override Block 2: Nordic Forest & Sage */
+html[data-theme="nordic"] {
+  --bg-primary: #0b0f12;
+  --bg-secondary: #11161a;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-border: rgba(255, 255, 255, 0.07);
+  --text-primary: #f2f4f5;
+  --text-secondary: #90a1ad;
+  --text-muted: #5f6f7a;
+  --accent-purple: #0b0f12;
+  --accent-blue: #10b981;
+  --accent-gradient: linear-gradient(135deg, #ffffff, #10b981);
+  --accent-gradient-hover: linear-gradient(135deg, #f0fdf4, #34d399);
+  --accent-glow: rgba(16, 185, 129, 0.35);
+  --accent-glow-blue: rgba(16, 185, 129, 0.2);
+  --shadow-glow: 0 0 30px rgba(16, 185, 129, 0.12);
+  --shadow-glow-strong: 0 0 60px rgba(16, 185, 129, 0.2);
+}
+
+/* Theme Override Block 3: Obsidian & Amber */
+html[data-theme="amber"] {
+  --bg-primary: #070709;
+  --bg-secondary: #0d0d12;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-border: rgba(255, 255, 255, 0.07);
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --accent-purple: #070709;
+  --accent-blue: #f97316;
+  --accent-gradient: linear-gradient(135deg, #ffffff, #f97316);
+  --accent-gradient-hover: linear-gradient(135deg, #fff7ed, #fb923c);
+  --accent-glow: rgba(249, 115, 22, 0.35);
+  --accent-glow-blue: rgba(249, 115, 22, 0.2);
+  --shadow-glow: 0 0 30px rgba(249, 115, 22, 0.12);
+  --shadow-glow-strong: 0 0 60px rgba(249, 115, 22, 0.2);
+}
+
+/* --- Theme Switcher UI Component --- */
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--bg-glass-border);
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  margin-right: var(--space-md);
+  height: 32px;
+  align-self: center;
+}
+
+.theme-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  transition: all var(--transition-fast);
+  padding: 0;
+  box-sizing: content-box;
+}
+
+.theme-dot:hover {
+  transform: scale(1.25);
+}
+
+.theme-dot.active {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.dot-ultramarine {
+  background-color: #2b4593;
+}
+
+.dot-nordic {
+  background-color: #10b981;
+}
+
+.dot-amber {
+  background-color: #f97316;
+}
+
+/* Responsive adjust for mobile toggle menus */
+@media (max-width: 900px) {
+  .theme-switcher {
+    margin-right: 0;
+    margin-bottom: var(--space-lg);
+    align-self: center;
+  }
+}

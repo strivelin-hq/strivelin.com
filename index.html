@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Theme Selector Anti-Flicker Script -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('strivelin_theme') || 'ultramarine';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -42,6 +49,13 @@
         <li role="none"><a href="#products" class="nav-link" role="menuitem">Products</a></li>
         <li role="none"><a href="/blog/" class="nav-link" role="menuitem">Blog</a></li>
         <li role="none"><a href="/learn/" class="nav-link" role="menuitem">Learn</a></li>
+        <li role="none" style="display: flex; align-items: center;">
+          <div class="theme-switcher" role="group" aria-label="Select color theme">
+            <button class="theme-dot dot-ultramarine" data-theme-btn="ultramarine" aria-label="Ultramarine theme" title="Ultramarine & Silver"></button>
+            <button class="theme-dot dot-nordic" data-theme-btn="nordic" aria-label="Nordic theme" title="Nordic Forest & Sage"></button>
+            <button class="theme-dot dot-amber" data-theme-btn="amber" aria-label="Amber theme" title="Obsidian & Amber"></button>
+          </div>
+        </li>
         <li role="none" class="nav-cta">
           <a href="/learn/" class="btn btn-primary" role="menuitem">Get Started</a>
         </li>
@@ -227,6 +241,33 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
     revealElements.forEach(el => observer.observe(el));
+
+    // --- Dynamic Theme Selector Controller ---
+    const themeBtns = document.querySelectorAll('[data-theme-btn]');
+    
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('strivelin_theme', theme);
+      
+      // Update active dots
+      themeBtns.forEach(btn => {
+        const isActive = btn.getAttribute('data-theme-btn') === theme;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    // Initialize switcher dots active class
+    const initialTheme = localStorage.getItem('strivelin_theme') || 'ultramarine';
+    applyTheme(initialTheme);
+
+    // Click handlers
+    themeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.getAttribute('data-theme-btn');
+        applyTheme(theme);
+      });
+    });
   </script>
 </body>
 </html>
