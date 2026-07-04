@@ -37,10 +37,25 @@
         <li role="none"><a href="/blog/" class="nav-link" role="menuitem">Blog</a></li>
         <li role="none"><a href="/learn/" class="nav-link active" role="menuitem">Learn</a></li>
         <li role="none" style="display: flex; align-items: center;">
-          <div class="theme-switcher" role="group" aria-label="Select color theme">
-            <button class="theme-dot dot-ultramarine" data-theme-btn="ultramarine" aria-label="Ultramarine theme" title="Ultramarine & Silver"></button>
-            <button class="theme-dot dot-nordic" data-theme-btn="nordic" aria-label="Nordic theme" title="Nordic Forest & Sage"></button>
-            <button class="theme-dot dot-amber" data-theme-btn="amber" aria-label="Amber theme" title="Obsidian & Amber"></button>
+          <div class="theme-dropdown" id="themeDropdown">
+            <button class="theme-dropdown-trigger" id="themeTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Select color theme">
+              <span>Theme</span>
+              <svg class="dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="theme-dropdown-menu" role="menu">
+              <button class="theme-menu-item" data-theme-btn="ultramarine" role="menuitem">
+                <span class="theme-menu-dot dot-ultramarine"></span>
+                Ultramarine
+              </button>
+              <button class="theme-menu-item" data-theme-btn="nordic" role="menuitem">
+                <span class="theme-menu-dot dot-nordic"></span>
+                Nordic Sage
+              </button>
+              <button class="theme-menu-item" data-theme-btn="amber" role="menuitem">
+                <span class="theme-menu-dot dot-amber"></span>
+                Obsidian Amber
+              </button>
+            </div>
           </div>
         </li>
         <li role="none" class="nav-cta">
@@ -122,12 +137,14 @@
 
     // --- Dynamic Theme Selector Controller ---
     const themeBtns = document.querySelectorAll('[data-theme-btn]');
+    const themeDropdown = document.getElementById('themeDropdown');
+    const themeTrigger = document.getElementById('themeTrigger');
     
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('strivelin_theme', theme);
       
-      // Update active dots
+      // Update active state on menu items
       themeBtns.forEach(btn => {
         const isActive = btn.getAttribute('data-theme-btn') === theme;
         btn.classList.toggle('active', isActive);
@@ -135,16 +152,32 @@
       });
     }
 
-    // Initialize switcher dots active class
+    // Initialize switcher active class
     const initialTheme = localStorage.getItem('strivelin_theme') || 'ultramarine';
     applyTheme(initialTheme);
 
-    // Click handlers
+    // Theme selector menu item clicks
     themeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const theme = btn.getAttribute('data-theme-btn');
         applyTheme(theme);
+        themeDropdown.classList.remove('open');
+        themeTrigger.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // Click toggle (primarily for mobile/touch)
+    themeTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = themeDropdown.classList.toggle('open');
+      themeTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close dropdown on clicking outside
+    document.addEventListener('click', () => {
+      themeDropdown.classList.remove('open');
+      themeTrigger.setAttribute('aria-expanded', 'false');
     });
   </script>
 </body>

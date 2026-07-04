@@ -1152,58 +1152,148 @@ html[data-theme="amber"] {
   --shadow-glow-strong: 0 0 60px rgba(249, 115, 22, 0.2);
 }
 
-/* --- Theme Switcher UI Component --- */
-.theme-switcher {
+/* --- Theme Dropdown UI Component --- */
+.theme-dropdown {
+  position: relative;
+  display: inline-block;
+  align-self: center;
+  margin-right: var(--space-md);
+}
+
+.theme-dropdown-trigger {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  background: var(--bg-card);
-  border: 1px solid var(--bg-glass-border);
-  padding: 6px 10px;
-  border-radius: var(--radius-full);
-  margin-right: var(--space-md);
-  height: 32px;
-  align-self: center;
-}
-
-.theme-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full);
-  border: 2px solid transparent;
+  gap: 6px;
   cursor: pointer;
-  background: transparent;
+  transition: color var(--transition-fast);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.theme-dropdown-trigger:hover,
+.theme-dropdown.open .theme-dropdown-trigger {
+  color: var(--text-primary);
+}
+
+.dropdown-arrow {
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.theme-dropdown:hover .dropdown-arrow,
+.theme-dropdown.open .dropdown-arrow {
+  transform: rotate(180deg);
+  color: var(--text-primary);
+}
+
+.theme-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 170px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  animation: dropdownFadeIn 200ms ease forwards;
+}
+
+@keyframes dropdownFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Show on hover of parent container */
+.theme-dropdown:hover .theme-dropdown-menu,
+.theme-dropdown.open .theme-dropdown-menu {
+  display: flex;
+}
+
+.theme-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
   transition: all var(--transition-fast);
-  padding: 0;
-  box-sizing: content-box;
 }
 
-.theme-dot:hover {
-  transform: scale(1.25);
+.theme-menu-item:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
 }
 
-.theme-dot.active {
-  border-color: var(--text-primary);
-  box-shadow: 0 0 10px var(--accent-glow);
+.theme-menu-item.active {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
-.dot-ultramarine {
+.theme-menu-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.theme-menu-dot.dot-ultramarine {
   background-color: #2b4593;
+  box-shadow: 0 0 8px rgba(43, 69, 147, 0.6);
 }
 
-.dot-nordic {
+.theme-menu-dot.dot-nordic {
   background-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
 }
 
-.dot-amber {
+.theme-menu-dot.dot-amber {
   background-color: #f97316;
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.6);
 }
 
 /* Responsive adjust for mobile toggle menus */
 @media (max-width: 900px) {
-  .theme-switcher {
+  .theme-dropdown {
     margin-right: 0;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
     align-self: center;
+  }
+  
+  .theme-dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    background: var(--bg-card);
+    border-color: var(--bg-glass-border);
+    margin-top: var(--space-xs);
+    width: 100%;
+  }
+
+  .theme-dropdown.open .theme-dropdown-menu {
+    display: flex;
   }
 }
