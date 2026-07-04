@@ -54,7 +54,12 @@ export default {
 
     // We keep the original path and query string intact — only the host
     // changes so the origin sees exactly the URL it expects.
-    const originUrl = new URL(url.pathname + url.search, `https://${originHost}`);
+    // Use HTTP for local origins (localhost or 127.0.0.1) and HTTPS for production.
+    const protocol = originHost.includes('127.0.0.1') || originHost.includes('localhost')
+      ? 'http'
+      : 'https';
+
+    const originUrl = new URL(url.pathname + url.search, `${protocol}://${originHost}`);
 
     // -----------------------------------------------------------------------
     // 3. Build the upstream request
